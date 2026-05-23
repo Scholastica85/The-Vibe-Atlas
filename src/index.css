@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  /* Deep, moody purples */
+  --color-brand-purple-900: #1a0a2e;
+  --color-brand-purple-800: #2d1b4e;
+  --color-brand-purple-700: #4a2d7a;
+  --color-brand-purple-600: #6b3fa0;
+  --color-brand-purple-500: #8b5cf6;
+
+  /* Vibrant neon pinks */
+  --color-brand-neon-500: #ff2d95;
+  --color-brand-neon-400: #ff5cb0;
+  --color-brand-neon-300: #ff8ac9;
+
+  /* Soft pastel pink highlights */
+  --color-brand-pastel-200: #fce4ec;
+  --color-brand-pastel-100: #fff0f5;
+
+  /* Slate grays for dark mode / neutral surfaces */
+  --color-brand-slate-900: #0f172a;
+  --color-brand-slate-800: #1e293b;
+  --color-brand-slate-700: #334155;
+  --color-brand-slate-600: #475569;
+  --color-brand-slate-500: #64748b;
+  --color-brand-slate-400: #94a3b8;
+  --color-brand-slate-300: #cbd5e1;
+  --color-brand-slate-200: #e2e8f0;
+  --color-brand-slate-100: #f1f5f9;
+
+  /* Clean off-whites */
+  --color-brand-white: #fafaf9;
+  --color-brand-off-white: #f5f5f4;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02) 25%,
+    rgba(255, 45, 149, 0.06) 50%,
+    rgba(255, 255, 255, 0.02) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+body {
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
