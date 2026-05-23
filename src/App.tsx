@@ -4,7 +4,7 @@ import MoodDock from './components/MoodDock'
 import ImageGrid from './components/ImageGrid'
 import SkeletonGrid from './components/SkeletonGrid'
 import ErrorState from './components/ErrorState'
-import { useMoodImages } from './hooks/useMoodImages'
+import { useVibeImages } from './hooks/useVibeImages'
 import type { Mood } from './types'
 
 const moods: Mood[] = ['calm', 'loud', 'warm', 'lonely', 'bright']
@@ -17,7 +17,7 @@ function App() {
     errorMessage,
     fetchImages,
     activeMood,
-  } = useMoodImages()
+  } = useVibeImages()
 
   const handleMoodSelect = useCallback(
     (mood: Mood) => {

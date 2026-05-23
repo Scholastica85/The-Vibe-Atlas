@@ -17,7 +17,10 @@ const moodLabels: Record<Mood, string> = {
 
 function MoodDock({ moods, activeMood, disabled, onSelect }: MoodDockProps) {
   return (
-    <nav className="flex flex-wrap justify-center gap-3 px-4 py-6">
+    <nav
+      className="flex flex-wrap justify-center gap-3 px-4 py-6"
+      aria-label="Mood selection"
+    >
       {moods.map((mood) => {
         const isActive = activeMood === mood
         return (
@@ -25,6 +28,8 @@ function MoodDock({ moods, activeMood, disabled, onSelect }: MoodDockProps) {
             key={mood}
             onClick={() => onSelect(mood)}
             disabled={disabled && !isActive}
+            aria-pressed={isActive}
+            aria-current={isActive ? 'true' : undefined}
             className={`
               relative px-6 py-2.5 rounded-full text-sm font-medium tracking-wide
               transition-all duration-300 ease-out cursor-pointer

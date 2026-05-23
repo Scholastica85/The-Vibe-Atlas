@@ -1,7 +1,11 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import { fetchMoodImages } from '../api/unsplash'
 
-interface UseMoodImagesReturn {
+interface VibeAbortController extends AbortController {
+  didAbort?: boolean
+}
+
+interface UseVibeImagesReturn {
   images: string[]
   isLoading: boolean
   isError: boolean
@@ -10,18 +14,32 @@ interface UseMoodImagesReturn {
   activeMood: string | null
 }
 
-export function useMoodImages(): UseMoodImagesReturn {
+export function useVibeImages(): UseVibeImagesReturn {
   const [images, setImages] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [activeMood, setActiveMood] = useState<string | null>(null)
-  const abortRef = useRef<AbortController | null>(null)
+  const abortRef = useRef<VibeAbortController | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (abortRef.current) {
+        abortRef.current.didAbort = true
+        abortRef.current.abort()
+      }
+    }
+  }, [])
 
   const fetchImages = useCallback(async (mood: string) => {
-    abortRef.current?.abort()
+    const prev = abortRef.current
+    if (prev) {
+      prev.didAbort = true
+      prev.abort()
+    }
 
-    const controller = new AbortController()
+    const controller = new AbortController() as VibeAbortController
+    controller.didAbort = false
     abortRef.current = controller
 
     setActiveMood(mood)
@@ -31,12 +49,13 @@ export function useMoodImages(): UseMoodImagesReturn {
 
     try {
       const urls = await fetchMoodImages(mood, controller.signal)
+      if (controller.didAbort) return
       if (!controller.signal.aborted) {
         setImages(urls)
         setIsLoading(false)
       }
     } catch (err) {
-      if (controller.signal.aborted) return
+      if (controller.didAbort) return
       const message =
         err instanceof Error ? err.message : 'Something went wrong'
       setErrorMessage(message)
