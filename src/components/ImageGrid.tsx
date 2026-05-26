@@ -12,21 +12,33 @@ function ImageGrid({ images, mood }: ImageGridProps) {
 
   return (
     <section className="max-w-6xl mx-auto px-4 pb-16">
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-[200px] md:auto-rows-[240px]">
-        <div className="col-span-2 row-span-2">
-          <ImageCard src={first} alt={`${mood} mood visual 1`} />
-        </div>
-        <div className="col-span-1 row-span-1">
-          <ImageCard src={second} alt={`${mood} mood visual 2`} />
-        </div>
-        <div className="col-span-1 row-span-1">
-          <ImageCard src={third} alt={`${mood} mood visual 3`} />
-        </div>
-        <div className="col-span-1 row-span-1">
-          <ImageCard src={fourth} alt={`${mood} mood visual 4`} />
-        </div>
-        <div className="col-span-1 row-span-1">
-          <ImageCard src={fifth} alt={`${mood} mood visual 5`} />
+      <div className="flex flex-col gap-4 md:grid md:grid-cols-[3fr_2fr] md:h-[80vh]">
+        <ImageCard
+          src={first}
+          alt={`${mood} mood visual 1`}
+          className="w-full aspect-[4/3] md:aspect-auto md:h-full rounded-lg"
+        />
+        <div className="grid grid-cols-2 gap-4 md:grid-rows-2 md:h-full">
+          <ImageCard
+            src={second}
+            alt={`${mood} mood visual 2`}
+            className="aspect-square md:aspect-auto w-full h-full"
+          />
+          <ImageCard
+            src={third}
+            alt={`${mood} mood visual 3`}
+            className="aspect-square md:aspect-auto w-full h-full"
+          />
+          <ImageCard
+            src={fourth}
+            alt={`${mood} mood visual 4`}
+            className="aspect-square md:aspect-auto w-full h-full"
+          />
+          <ImageCard
+            src={fifth}
+            alt={`${mood} mood visual 5`}
+            className="aspect-square md:aspect-auto w-full h-full"
+          />
         </div>
       </div>
     </section>

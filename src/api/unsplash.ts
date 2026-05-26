@@ -7,10 +7,8 @@ export async function fetchMoodImages(
   mood: string,
   signal?: AbortSignal,
 ): Promise<string[]> {
-  if (!ACCESS_KEY || ACCESS_KEY === 'your_actual_unsplash_client_id_here') {
-    throw new Error(
-      'Unsplash API key is not configured. Set VITE_UNSPLASH_ACCESS_KEY in your .env file.',
-    )
+  if (!ACCESS_KEY) {
+    throw new Error('VITE_UNSPLASH_ACCESS_KEY is missing from environment configuration.');
   }
 
   const params = new URLSearchParams({
